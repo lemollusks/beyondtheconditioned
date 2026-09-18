@@ -1,0 +1,41 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Beyond the Conditioned — Dependent Arising",
+      "hasCanvas": true,
+      "bodyTextLen": 13015,
+      "bodyTextHash": "8b85d8572758bfd72782d9780e30ed5c9b43e45dfcd9fb5ee623e2949119508e",
+      "bodyTextPrefix": "Skip to study content Beyond the Conditioned A STUDY OF DEPENDEN",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Beyond the Conditioned — Dependent Arising",
+      "hasCanvas": true,
+      "bodyTextLen": 12930,
+      "bodyTextHash": "bbb1990747ea8bb60b39ea8510405a4b6f494a9d47796df8e17fc93f7f12ff37",
+      "bodyTextPrefix": "Skip to study content Beyond the Conditioned A STUDY OF DEPENDEN",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [
+    "BRAND WARNING: this looks like a game/canvas app but src/lib/og/site.json is missing \"type\": \"x:game\". X uses og:type=x:game to present the unfurl as a game card — set it in /workspace/src/lib/og/site.json per /workspace/.grok/skills/og/SKILL.md. Do not invent x:type or overload twitter:card as the game signal.",
+    "BRAND WARNING: this looks like a game/canvas app but /workspace/public/x-banner.jpg is missing. Games need a 50:11 X feed card (1200×264 JPEG) at public/x-banner.jpg — open /workspace/.grok/skills/og/SKILL.md and finish the brand-asset pass."
+  ],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}

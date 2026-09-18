@@ -28,6 +28,8 @@ jobs:
           cp docs/index.html docs/styles.css docs/init.js docs/CNAME docs/robots.txt docs/sitemap.xml docs/404.html docs/.nojekyll _site/
           cp public/favicon.svg public/favicon-32.png public/apple-touch-icon.png public/og.jpg _site/
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

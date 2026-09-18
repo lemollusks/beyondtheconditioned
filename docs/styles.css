@@ -274,3 +274,52 @@ button.text-link:hover{background:none;color:var(--ink)}
 @media print{
   .start-row,.visual-head,.intro-lead{display:none!important}
 }
+
+.explore-block{position:relative}
+.visual-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.visual-head .segmented{flex:0 1 auto}
+.visual-head #reading-toggle{margin-left:auto}
+.readmode .viewbar{display:none}
+#explore, #detail-panel, .section-block, #visual{
+  scroll-margin-top:72px;
+  scroll-margin-bottom:24px;
+}
+@media(max-width:820px){
+  html{scroll-padding-top:108px;scroll-padding-bottom:108px}
+  #explore, #detail-panel, .section-block, #visual, #study-guide, #study-deeper, #further-reading{
+    scroll-margin-top:108px;
+    scroll-margin-bottom:108px;
+  }
+  .journeybar{
+    position:sticky;
+    bottom:0;
+    z-index:300;
+  }
+  .panel-inner{padding-bottom:28px}
+  .panel details summary, .panel-tools button, .study-tools button, .header-actions button, .header-actions a, .visual-head button, .guide-actions button{
+    min-height:44px;
+  }
+  .reading{padding:14px 10px 10px}
+  .reading button{min-height:48px;padding:8px 10px;font-size:13px}
+}
+@media(max-width:480px){
+  html{scroll-padding-top:56px;scroll-padding-bottom:100px}
+  .toc-copy{display:none}
+  .toc-progress{min-height:48px;flex-wrap:nowrap}
+  .toc-dots{width:100%}
+  #explore, #detail-panel, .section-block, #visual, #study-guide, #study-deeper, #further-reading{
+    scroll-margin-top:56px;
+    scroll-margin-bottom:100px;
+  }
+  .header-actions button.small, .header-actions a{min-height:44px;padding:8px 10px}
+  .visual-head{flex-wrap:nowrap;gap:8px}
+  .visual-head .segmented{flex:1 1 auto}
+  .visual-head .segmented button{flex:1}
+  .visual-head #reading-toggle{margin-left:0;flex:0 0 auto;white-space:nowrap}
+}

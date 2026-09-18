@@ -125,7 +125,7 @@ function draw(){if(reading)return;const rect=$('scene').getBoundingClientRect();
  positions.forEach((p,i)=>{const b=nodeButtons[i];b.style.left=p.x+'px';b.style.top=p.y+'px';b.style.zIndex=String(Math.round(100-p.z));b.querySelector('.orb').style.transform=`scale(${p.scale})`;});
 }
 $('arising').onclick=()=>setMode('arising');$('cessation').onclick=()=>setMode('cessation');$('next').onclick=()=>{if(selected<11)select(selected+1);else if(mode==='arising'){selected=0;setMode('cessation')}else showSummary()};$('back').onclick=()=>select(Math.max(-1,selected-1));
-if($('begin-guided')) $('begin-guided').onclick=()=>{if(selected<0) select(0); const panel=$('detail-panel'); if(panel){panel.scrollIntoView({block:'start'}); panel.focus({preventScroll:true});}};
+if($('begin-guided')) $('begin-guided').onclick=()=>{if(selected<0) select(0); const panel=$('detail-panel'); if(panel){ panel.scrollIntoView({block:'start'}); }};
 if($('explore-freely')) $('explore-freely').onclick=()=>{const vis=$('visual'); if(!vis) return; vis.scrollIntoView({block:'start'}); vis.classList.add('free-focus'); setTimeout(()=>vis.classList.remove('free-focus'), 1400); const scene=$('scene'); if(scene) scene.focus?.();};
 function setReading(on){
   reading=!!on;

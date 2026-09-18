@@ -6,9 +6,10 @@ import {
 } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Beyond the Conditioned";
+const APP_NAME = SITE_NAME;
 const DESCRIPTION =
   "Explore the twelve links of dependent arising through an interactive model, a readable study guide, and an annotated scholarly reading list. Grounded in early Buddhist discourses.";
 
@@ -27,6 +28,7 @@ export const Route = createRootRoute({
       { name: "robots", content: "index, follow" },
     ],
     links: [
+      { rel: "canonical", href: SITE_URL },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },

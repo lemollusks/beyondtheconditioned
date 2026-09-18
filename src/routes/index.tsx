@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { StudyApp } from "@/study/StudyApp";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const DESCRIPTION =
   "Explore the twelve links of dependent arising through an interactive model, a readable study guide, and an annotated scholarly reading list. Grounded in early Buddhist discourses.";
@@ -30,8 +31,24 @@ const jsonLd = {
     educationalRole: "student",
   },
   author: {
+    "@type": "Person",
+    name: "CONSCERA",
+  },
+  editor: {
+    "@type": "Person",
+    name: "CONSCERA",
+  },
+  url: SITE_URL,
+  mainEntityOfPage: SITE_URL,
+  publisher: {
     "@type": "Organization",
-    name: "Beyond the Conditioned",
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
+  isPartOf: {
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: SITE_URL,
   },
   dateModified: "2026-09-18",
   creativeWorkStatus: "Published",

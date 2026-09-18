@@ -1,5 +1,4 @@
-// @ts-nocheck
-export function initStudy() {
+function initStudy() {
 const ac = new AbortController();
 const canvasEl = document.getElementById('canvas');
 if (!canvasEl) return function(){};
@@ -241,3 +240,6 @@ return function cleanup(){
 };
 
 }
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initStudy);
+else initStudy();

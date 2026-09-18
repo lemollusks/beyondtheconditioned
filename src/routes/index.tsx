@@ -1,16 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { StudyApp } from "@/study/StudyApp";
-import { SITE_NAME, SITE_URL } from "@/lib/site";
-
-const DESCRIPTION =
-  "Explore the twelve links of dependent arising through an interactive model, a readable study guide, and an annotated scholarly reading list. Grounded in early Buddhist discourses.";
+import { SITE_NAME, SITE_URL, SHARE_TITLE, SHARE_DESCRIPTION, OG_IMAGE } from "@/lib/site";
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": ["WebPage", "LearningResource"],
-  name: "Beyond the Conditioned — Dependent Arising",
-  headline: "Dependent arising. The conditions of suffering and release.",
-  description: DESCRIPTION,
+  name: SHARE_TITLE,
+  headline: SHARE_TITLE,
+  description: SHARE_DESCRIPTION,
   inLanguage: "en",
   isAccessibleForFree: true,
   learningResourceType: "Interactive resource",
@@ -52,6 +49,7 @@ const jsonLd = {
   },
   dateModified: "2026-09-18",
   creativeWorkStatus: "Published",
+  image: OG_IMAGE,
 };
 
 export const Route = createFileRoute("/")({

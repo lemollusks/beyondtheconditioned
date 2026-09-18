@@ -6,12 +6,11 @@ import {
 } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
-import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { SITE_NAME, SITE_URL, SHARE_TITLE, SHARE_DESCRIPTION } from "@/lib/site";
 import appCss from "../styles.css?url";
 
 const APP_NAME = SITE_NAME;
-const DESCRIPTION =
-  "Explore the twelve links of dependent arising through an interactive model, a readable study guide, and an annotated scholarly reading list. Grounded in early Buddhist discourses.";
+const DESCRIPTION = SHARE_DESCRIPTION;
 
 const THEME_BOOT =
   "(function(){try{var s=localStorage.getItem('btc-theme');var t=(s==='light'||s==='dark')?s:(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();";
@@ -21,7 +20,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: `${APP_NAME} — Dependent Arising` },
+      { title: SHARE_TITLE },
       { name: "description", content: DESCRIPTION },
       { name: "theme-color", content: "#f4f1e9" },
       { name: "color-scheme", content: "light dark" },

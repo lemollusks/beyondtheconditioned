@@ -107,8 +107,28 @@ function renderPanel(){
  $('progress-label').textContent=selected<0?'Your guided journey starts here':`${mode==='arising'?'Arising':'Cessation'} · Link ${selected+1} of 12`;$('next').textContent=selected<0?'Begin journey →':selected===11?(mode==='arising'?'Explore cessation →':'Compare & reflect →'):'Next link →';$('back').disabled=selected<0;
  nodeButtons.forEach((b,i)=>{b.setAttribute('aria-pressed',String(i===selected));b.classList.toggle('past',i<selected);b.classList.toggle('near',selected>=0&&Math.abs(i-selected)===1);b.classList.toggle('distant',selected>=0&&Math.abs(i-selected)>1)});readingButtons.forEach((b,i)=>{b.setAttribute('aria-pressed',String(i===selected));b.classList.toggle('near',selected>=0&&Math.abs(i-selected)===1)});stepButtons.forEach((b,i)=>{b.classList.toggle('done',i<=selected);if(i===selected)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});
 }
-function select(i){selected=i;renderPanel();draw();saveStep();$('announcement').textContent=i<0?'Journey introduction':`Link ${i+1}: ${links[i][0]}. ${relation(i)}`;}
-function setMode(m){mode=m;$('cessation-banner').hidden=m!=='cessation';$('ring-legend').textContent=m==='arising'?'Filled node: selected · Emphasized neighbors: preceding/following links · The ring remains open':'Emphasized neighbors: preceding/following links · Dashed arrows: cessation illustrated, not sensory shutdown';document.body.classList.toggle('ceased',m==='cessation');$('arising').setAttribute('aria-pressed',String(m==='arising'));$('cessation').setAttribute('aria-pressed',String(m==='cessation'));$('center-mode').textContent=m==='arising'?'Conditional arising':'Conditional cessation';$('center-title').innerHTML=m==='arising'?'With this condition,<br>that arises.':'When this ceases,<br>that ceases.';$('center-sub').innerHTML=m==='arising'?'A map of suffering<br>and the possibility of release.':'The ending of conditions<br>that sustain suffering.';if(selected<0&&m==='cessation')selected=0;renderPanel();draw();saveStep();$('announcement').textContent=`${m} view. ${selected>=0?relation(selected):''}`;}
+function select(i){selected=i;renderPanel();schedule();saveStep();$('announcement').textContent=i<0?'Journey introduction':`Link ${i+1}: ${links[i][0]}. ${relation(i)}`;}
+let applyingHash=false;
+function setMode(m){
+  const fromStart=selected<0&&m==='cessation';
+  if(mode===m&&!fromStart) return;
+  mode=m;
+  if(fromStart) selected=0;
+  const arisingBtn=$('arising'), cessBtn=$('cessation');
+  if(arisingBtn) arisingBtn.setAttribute('aria-pressed',String(m==='arising'));
+  if(cessBtn) cessBtn.setAttribute('aria-pressed',String(m==='cessation'));
+  document.body.classList.toggle('ceased',m==='cessation');
+  const banner=$('cessation-banner');
+  if(banner) banner.hidden=m!=='cessation';
+  if($('ring-legend')) $('ring-legend').textContent=m==='arising'?'Filled node: selected · Emphasized neighbors: preceding/following links · The ring remains open':'Emphasized neighbors: preceding/following links · Dashed arrows: cessation illustrated, not sensory shutdown';
+  if($('center-mode')) $('center-mode').textContent=m==='arising'?'Conditional arising':'Conditional cessation';
+  if($('center-title')) $('center-title').innerHTML=m==='arising'?'With this condition,<br>that arises.':'When this ceases,<br>that ceases.';
+  if($('center-sub')) $('center-sub').innerHTML=m==='arising'?'A map of suffering<br>and the possibility of release.':'The ending of conditions<br>that sustain suffering.';
+  renderPanel();
+  schedule();
+  if(!applyingHash) saveStep();
+  $('announcement').textContent=`${m} view. ${selected>=0?relation(selected):''}`;
+}
 // 3D points in a plane, rotated around two axes and projected with perspective.
 // Labels stay in screen space for legibility; geometry and shadows preserve depth.
 function project(t,r=1){const R=Math.min(width*.34,215)*r;const xx=Math.cos(t+angle)*R,yy=Math.sin(t+angle)*(width<480?height*.37*r:R);const z=yy*Math.sin(tilt),scale=950/(950+z);return{x:width/2+xx*scale,y:height*.49+yy*Math.cos(tilt)*scale,z,scale};}
@@ -122,7 +142,23 @@ function draw(){if(reading)return;const rect=$('scene').getBoundingClientRect();
  for(let i=0;i<11;i++){const fading=mode==='cessation'&&i<=selected;ctx.beginPath();for(let j=0;j<=24;j++){let t=theta(i)+(theta(i+1)-theta(i))*(.1+j/24*.8),p=project(t);j?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y)}ctx.strokeStyle=fading?mute:i===selected?(mode==='arising'?gold:sage):i<selected?gold:mute;if(selected>=0){const adjacent=i===selected||i===selected-1;ctx.strokeStyle=adjacent?(mode==='arising'?gold:sage):mute;ctx.lineWidth=adjacent?2.8:1}else ctx.lineWidth=1.3;ctx.setLineDash(fading?[3,5]:[]);ctx.stroke();ctx.setLineDash([]);const t=(theta(i)+theta(i+1))/2,p=project(t),q=project(t+.012),rot=Math.atan2(q.y-p.y,q.x-p.x);ctx.save();ctx.translate(p.x,p.y);ctx.rotate(rot);ctx.beginPath();ctx.moveTo(-5,-3);ctx.lineTo(1,0);ctx.lineTo(-5,3);ctx.stroke();ctx.restore();edgePositions.push({x:p.x,y:p.y,i});}
  positions.forEach((p,i)=>{const b=nodeButtons[i];b.style.left=p.x+'px';b.style.top=p.y+'px';b.style.zIndex=String(Math.round(100-p.z));b.querySelector('.orb').style.transform=`scale(${p.scale})`;});
 }
-$('arising').onclick=()=>setMode('arising');$('cessation').onclick=()=>setMode('cessation');$('next').onclick=()=>{if(selected<11)select(selected+1);else if(mode==='arising'){selected=0;setMode('cessation')}else showSummary()};$('back').onclick=()=>select(Math.max(-1,selected-1));
+$('arising').onclick=null;$('cessation').onclick=null;
+function bindImmediate(el, fn){
+  if(!el) return;
+  let stamp=0;
+  el.addEventListener('pointerdown', e=>{
+    if(e.pointerType==='mouse' && e.button!==0) return;
+    stamp=e.timeStamp;
+    fn();
+  }, {signal:ac.signal});
+  el.addEventListener('click', e=>{
+    if(stamp && e.timeStamp-stamp<700){ e.preventDefault(); return; }
+    fn();
+  }, {signal:ac.signal});
+}
+bindImmediate($('arising'), ()=>setMode('arising'));
+bindImmediate($('cessation'), ()=>setMode('cessation'));
+$('next').onclick=()=>{if(selected<11)select(selected+1);else if(mode==='arising'){selected=0;setMode('cessation')}else showSummary()};$('back').onclick=()=>select(Math.max(-1,selected-1));
 function setReading(on){
   reading=!!on;
   const vis=$('visual'), tog=$('reading-toggle');
@@ -151,9 +187,9 @@ $('notes').onclick=()=>openModal('Presenter notes',`<div class="eyebrow">${selec
 $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{$('toast').textContent='Full screen is unavailable here. Open this file directly in your browser.'}};document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen ↙':'Full screen ↗';schedule()},{signal:ac.signal});
 document.addEventListener('keydown',e=>{if($('modal').open||e.altKey||e.ctrlKey||e.metaKey||['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName))return;if(e.key==='ArrowRight'){e.preventDefault();$('next').click()}if(e.key==='ArrowLeft'){e.preventDefault();$('back').click()}},{signal:ac.signal});
 
-function saveStep(){if(selected<0)return;try{history.replaceState(null,'',`#link-${String(selected+1).padStart(2,'0')}-${mode}`)}catch{}}
+function saveStep(){if(selected<0||applyingHash)return;const next=`#link-${String(selected+1).padStart(2,'0')}-${mode}`;if(location.hash===next)return;const x=scrollX,y=scrollY;try{history.replaceState(null,'',next)}catch{return}if(scrollX!==x||scrollY!==y)scrollTo(x,y)}
 async function shareStep(){if(location.protocol==='file:'){$('toast').textContent='Step reference: '+links[selected][0]+' · '+mode+'. After hosting, this button copies a direct web link.';return}try{await navigator.clipboard.writeText(location.href);$('toast').textContent='Direct link copied.'}catch{$('toast').textContent='Copy the address in your browser to share this step.'}}
-function applyHash(){const match=location.hash.match(/^#link-(0[1-9]|1[0-2])-(arising|cessation)$/);if(match){selected=Number(match[1])-1;setMode(match[2]);if(innerWidth<821)$('detail-panel').scrollIntoView({block:'start',behavior:'auto'})}}
+function applyHash(){const match=location.hash.match(/^#link-(0[1-9]|1[0-2])-(arising|cessation)$/);if(!match)return;const i=Number(match[1])-1,m=match[2];if(selected===i&&mode===m)return;applyingHash=true;selected=i;setMode(m);applyingHash=false;if(innerWidth<821)$('detail-panel').scrollIntoView({block:'start',behavior:'auto'})}
 window.addEventListener('hashchange',applyHash,{signal:ac.signal});
 document.querySelectorAll('[data-jump]').forEach(a=>a.addEventListener('click',()=>{selected=Number(a.dataset.jump);setMode('arising');$('detail-panel').scrollIntoView({block:'center'});$('detail-panel').focus({preventScroll:true})},{signal:ac.signal}));
 $('restart').onclick=()=>{selected=-1;setMode('arising');angle=0;tilt=.34;try{history.replaceState(null,'',location.pathname+location.search)}catch{}renderPanel();schedule()};

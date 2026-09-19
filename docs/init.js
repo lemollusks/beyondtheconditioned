@@ -194,6 +194,7 @@ document.querySelectorAll('[data-jump]').forEach(a=>a.addEventListener('click',(
 $('restart').onclick=()=>{selected=-1;setMode('arising');angle=0;tilt=.34;try{history.replaceState(null,'',location.pathname+location.search)}catch{}renderPanel();schedule()};
 $('print-guide').onclick=()=>window.print();
 document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{const filter=b.dataset.filter;let count=0;document.querySelectorAll('.book').forEach(card=>{card.hidden=filter!=='all'&&card.dataset.category!==filter;if(!card.hidden)count++});document.querySelectorAll('[data-filter]').forEach(btn=>btn.setAttribute('aria-pressed',String(btn===b)));$('reading-count').textContent=filter==='all'?'10 readings · 7 books, 1 booklet, 2 articles':`${count} reading${count===1?'':'s'} shown`;});
+document.querySelectorAll('details[name="nidana-guide"]').forEach(d=>d.addEventListener('toggle',()=>{if(!d.open)return;document.querySelectorAll('details[name="nidana-guide"]').forEach(o=>{if(o!==d)o.open=false})},{signal:ac.signal}));
 // Educational layers. The source text, scholarly explanations, and invented
 // illustrations are explicitly separated; none claims to be a scientific simulation.
 const explanations=[

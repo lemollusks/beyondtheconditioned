@@ -4,7 +4,7 @@ import { SITE_NAME, SITE_ORIGIN, OG_IMAGE } from "@/lib/site";
 
 const TITLE = "Name the link — a recognition exercise";
 const DESCRIPTION =
-  "Ten short scenes for telling the twelve links apart. Misses teach. Not a test of attainment, and not the Wheel of Life.";
+  "Ten short scenes, drawn from a bank of thirty, for telling the twelve links apart. Misses teach. Not a test of attainment, and not the Wheel of Life.";
 const URL = `${SITE_ORIGIN}/practice/`;
 
 export const Route = createFileRoute("/practice")({

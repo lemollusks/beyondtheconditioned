@@ -1,6 +1,9 @@
+const ROUND_SIZE = 10;
+
 const SCENES = [
   {
     id: "01",
+    tag: "feeling",
     register: "Feeling · vedanā",
     scene: "A remark reaches the ear. Before any story about the speaker begins, there is an unpleasant tone.",
     prompt: "What is present here, as the discourses use these words?",
@@ -14,6 +17,7 @@ const SCENES = [
   },
   {
     id: "02",
+    tag: "contact",
     register: "Contact · phassa",
     scene: "A sound, a functioning ear, and hearing-consciousness meet. That meeting is the event.",
     prompt: "Which link names this meeting?",
@@ -27,6 +31,7 @@ const SCENES = [
   },
   {
     id: "03",
+    tag: "craving",
     register: "Craving · taṇhā",
     scene: "A taste is pleasant. Then the thought arrives: “I need more of this.”",
     prompt: "The second moment is best named as:",
@@ -40,6 +45,7 @@ const SCENES = [
   },
   {
     id: "04",
+    tag: "ignorance",
     register: "Ignorance · avijjā",
     scene: "Someone does not understand suffering, its origin, its cessation, and the path leading to its cessation.",
     prompt: "In SN 12.2 this is:",
@@ -53,6 +59,7 @@ const SCENES = [
   },
   {
     id: "05",
+    tag: "cessation",
     register: "Cessation reading",
     scene: "The same pleasant tone is known. The thirst “I need more” does not take hold. Seeing and hearing continue.",
     prompt: "This scene is meant to illustrate:",
@@ -66,6 +73,7 @@ const SCENES = [
   },
   {
     id: "06",
+    tag: "birth",
     register: "Birth · jāti",
     scene: "Someone says: “A new mood was born in me this afternoon.”",
     prompt: "On this site, how should that sentence be read?",
@@ -79,6 +87,7 @@ const SCENES = [
   },
   {
     id: "07",
+    tag: "open-ring",
     register: "The open ring",
     scene: "Aging-and-death has been named. A circular painting suggests the next arrow should return to ignorance.",
     prompt: "Does the standard formula in SN 12.2 add that arrow?",
@@ -92,6 +101,7 @@ const SCENES = [
   },
   {
     id: "08",
+    tag: "name-form",
     register: "Name-and-form · nāma-rūpa",
     scene: "The formula reaches name-and-form.",
     prompt: "Here the compound refers to:",
@@ -105,6 +115,7 @@ const SCENES = [
   },
   {
     id: "09",
+    tag: "clinging",
     register: "Clinging · upādāna",
     scene: "A practice is treated as sufficient by itself for liberation.",
     prompt: "Which concern in the formula does this touch?",
@@ -118,6 +129,7 @@ const SCENES = [
   },
   {
     id: "10",
+    tag: "condition",
     register: "The stated relationship",
     scene: "The model draws an arrow from one link to the next.",
     prompt: "Read each arrow as:",
@@ -129,6 +141,286 @@ const SCENES = [
     correct: "condition",
     note: "Bodhi discusses variants of conditionality, including mutual support. Neighbor highlighting on the study page is a reading aid, not every condition involved.",
   },
+  {
+    id: "11",
+    tag: "six-bases",
+    register: "Six sense bases · saḷāyatana",
+    scene: "The formula lists eye, ear, nose, tongue, body, and mind.",
+    prompt: "This list is:",
+    options: [
+      { id: "anatomy", label: "A claim about the modern anatomical count of senses", miss: "It is a Buddhist account of the doors of experience, including mind. It is not a statement of contemporary anatomy." },
+      { id: "bases", label: "The six bases of experience in this teaching" },
+      { id: "contact", label: "Already contact", miss: "The bases are the doors. Contact is the later meeting of a door, an object, and corresponding consciousness." },
+    ],
+    correct: "bases",
+    note: "SN 12.2. Mind is included among the six; this is not five physical senses plus a leftover.",
+  },
+  {
+    id: "12",
+    tag: "consciousness",
+    register: "Consciousness · viññāṇa",
+    scene: "Seeing-consciousness, hearing-consciousness, and the rest of the six classes.",
+    prompt: "In this formula, consciousness is:",
+    options: [
+      { id: "soul", label: "An unchanging soul that travels between lives", miss: "SN 12.2 treats consciousness as classed with the six, associated with the senses. MN 38 challenges the claim that the same consciousness continues through rebirth." },
+      { id: "classes", label: "Consciousness associated with the six bases" },
+      { id: "unconscious", label: "The opposite of being unconscious", miss: "The cessation formula does not instruct one to become unconscious. It concerns consciousness as conditioned in this sequence." },
+    ],
+    correct: "classes",
+    note: "SN 12.2. Other early sequences describe consciousness and name-and-form as mutually conditioning; this diagram follows SN 12.2’s one-way list.",
+  },
+  {
+    id: "13",
+    tag: "formations",
+    register: "Volitional formations · saṅkhārā",
+    scene: "Intentional activities of body, speech, and mind, conditioned here by ignorance.",
+    prompt: "In this formula the word is used for:",
+    options: [
+      { id: "habit", label: "Any habit, including tying one’s shoes", miss: "The word has different uses in Buddhist texts. Here it belongs to the dependent-arising formula and has karmic significance." },
+      { id: "formations", label: "Karmically significant formations in this sequence" },
+      { id: "no-action", label: "A rule that an awakened person never acts", miss: "Formations conditioned by ignorance cease. Wholesome intention and ordinary activity remain possible for a living awakened person." },
+    ],
+    correct: "formations",
+    note: "SN 12.2. Translation choices differ; this site reads formations here in their karmic context.",
+  },
+  {
+    id: "14",
+    tag: "aging-death",
+    register: "Aging-and-death · jarāmaraṇa",
+    scene: "The sequence concludes with aging, dying, and the sorrow, lamentation, pain, distress, and despair named in the formula.",
+    prompt: "This last item is:",
+    options: [
+      { id: "close", label: "The cause of the next ignorance, closing the wheel", miss: "There is no additional “death causes ignorance” arrow in the standard formula. The ring is intentionally open." },
+      { id: "conclusion", label: "The conclusion of this formula, with this whole mass of suffering" },
+      { id: "body-only", label: "Only the death of a physical body, with no remainder of distress", miss: "The formula includes sorrow, lamentation, pain, distress, and despair together with aging and dying." },
+    ],
+    correct: "conclusion",
+    note: "SN 12.2. Harvey emphasizes the significance of this relation for the ending of rebirth, not immortality of a body already born.",
+  },
+  {
+    id: "15",
+    tag: "feeling",
+    register: "Feeling · not the whole emotion",
+    scene: "Anger arises after an unpleasant remark. Heat, story, and the wish to strike are all present.",
+    prompt: "In this teaching, vedanā names:",
+    options: [
+      { id: "anger", label: "The whole of anger", miss: "Anger is a more complex emotion. Feeling tone is one aspect of the experience, not the entire event." },
+      { id: "tone", label: "The pleasant, unpleasant, or neutral tone" },
+      { id: "craving", label: "Already craving", miss: "The unpleasant tone is feeling. Thirst and the wish to strike involve further factors." },
+    ],
+    correct: "tone",
+    note: "Harvey, p. 71; MN 148. “Unpleasant” describes the feeling tone; thoughts and emotions that follow require further explanation.",
+  },
+  {
+    id: "16",
+    tag: "clinging",
+    register: "Clinging · views",
+    scene: "A flattering view of oneself is held as “this is what I am,” and defended.",
+    prompt: "This is closest to:",
+    options: [
+      { id: "feeling", label: "Feeling tone alone", miss: "A tone may have been present. Treating a view as oneself is clinging, including views and doctrines of self." },
+      { id: "clinging", label: "Clinging — including views and doctrines of self" },
+      { id: "birth", label: "Birth in SN 12.2’s full sense", miss: "Holding a view can illustrate grasping. It does not replace the canonical definition of birth." },
+    ],
+    correct: "clinging",
+    note: "SN 12.2; Harvey, p. 71. Clinging is a more active involvement than craving, and its objects include views, not only possessions.",
+  },
+  {
+    id: "17",
+    tag: "becoming",
+    register: "Becoming · bhava",
+    scene: "Someone says: “I became a manager this year, so that is becoming.”",
+    prompt: "On this site that sentence is:",
+    options: [
+      { id: "exact", label: "The full early-text meaning of bhava", miss: "Reducing this link to adopting a temporary identity would leave out the early texts’ rebirth framework." },
+      { id: "partial", label: "A limited illustration that leaves something out" },
+      { id: "craving", label: "Simply craving for a title", miss: "Wanting a title may involve craving. Becoming in SN 12.2 concerns existence that conditions birth." },
+    ],
+    correct: "partial",
+    note: "Harvey, pp. 71–72; Gethin, pp. 150–153. “Holding a view shapes my identity” may be useful, but does not replace the canonical definition.",
+  },
+  {
+    id: "18",
+    tag: "cessation",
+    register: "Cessation of consciousness",
+    scene: "Someone hears “cessation of consciousness” and lies down to become unconscious.",
+    prompt: "The cessation formula here is:",
+    options: [
+      { id: "sleep", label: "An instruction to become unconscious", miss: "The formula concerns consciousness conditioned within this sequence, rather than an exercise in becoming unconscious." },
+      { id: "sequence", label: "The ending of consciousness as conditioned in this sequence" },
+      { id: "death", label: "The same as bodily death", miss: "Release concerns the process sustaining suffering and renewed existence. Bodily destruction is no part of this instruction." },
+    ],
+    correct: "sequence",
+    note: "Schools explain the timing and scope of this cessation differently. This site does not treat it as fainting or as suicide.",
+  },
+  {
+    id: "19",
+    tag: "consciousness",
+    register: "A companion formulation",
+    scene: "SN 12.67 describes consciousness and name-and-form supporting one another, like two sheaves of reeds.",
+    prompt: "How does this site place that account?",
+    options: [
+      { id: "replace", label: "It replaces SN 12.2, so the ring should show a two-way arrow as the main model", miss: "Both formulations occur in the early discourses. The one-way ring records SN 12.2; the reciprocal account is preserved beside it, not overwritten." },
+      { id: "beside", label: "A companion account, kept beside SN 12.2’s sequence" },
+      { id: "later", label: "A later invention with no early-discourse basis", miss: "SN 12.67 is itself an early discourse. The reed image is a textual analogy for mutual dependence." },
+    ],
+    correct: "beside",
+    note: "The two bundles of reeds support one another. This is a textual analogy, not a demonstration that a disembodied consciousness constructs matter.",
+  },
+  {
+    id: "20",
+    tag: "contact",
+    register: "Contact · not only touch",
+    scene: "A thought and mind-consciousness meet a mental object. There is no physical touching.",
+    prompt: "Is this still contact in the formula?",
+    options: [
+      { id: "no", label: "No — contact means only physical touching", miss: "Contact includes hearing and thinking as well as physical touching. Mind is one of the six bases." },
+      { id: "yes", label: "Yes — mind-contact is included" },
+      { id: "feeling", label: "It is already feeling", miss: "The meeting is contact. Any pleasant, unpleasant, or neutral tone that follows is feeling." },
+    ],
+    correct: "yes",
+    note: "MN 148; SN 12.2. Six classes of contact, including mind-contact.",
+  },
+  {
+    id: "21",
+    tag: "feeling",
+    register: "Neutral feeling",
+    scene: "An ordinary sight: neither pleasant nor unpleasant. Nothing special seems to be happening.",
+    prompt: "In the formula this tone is:",
+    options: [
+      { id: "absent", label: "The absence of feeling", miss: "Neutral is one of the three tones. Feeling is present as neither-pleasant-nor-unpleasant." },
+      { id: "neutral", label: "Neutral feeling" },
+      { id: "ignorance", label: "Already ignorance", miss: "Not noticing a tone may involve inattention. The tone itself, if neither pleasant nor painful, is still classed as feeling." },
+    ],
+    correct: "neutral",
+    note: "SN 12.2 classes feeling from the six kinds of contact. Pleasant, unpleasant, and neutral describe another classification used in the introductory gloss.",
+  },
+  {
+    id: "22",
+    tag: "craving",
+    register: "Craving · distinguished from aspiration",
+    scene: "Someone wishes to understand the teaching and to harm no one.",
+    prompt: "This site treats that wish as:",
+    options: [
+      { id: "tanha", label: "The same as craving (taṇhā)", miss: "Wholesome aspiration and intention are distinguished from craving. Not every directed wish is the thirst named in the formula." },
+      { id: "distinct", label: "Distinct from craving as the formula uses the word" },
+      { id: "clinging", label: "Already clinging at a doctrine of self", miss: "A wish to understand need not be grasping a view as oneself. Clinging has its own objects in SN 12.2." },
+    ],
+    correct: "distinct",
+    note: "The formula’s craving is thirst for experiences through the six senses; elsewhere also sensuality, existence, and nonexistence. Aspiration toward understanding is not collapsed into that thirst here.",
+  },
+  {
+    id: "23",
+    tag: "illustration",
+    register: "Limits of illustration",
+    scene: "The daily-life scenarios on the study page walk through a harsh remark, a pause, and a different response.",
+    prompt: "Those scenarios are offered as:",
+    options: [
+      { id: "full", label: "A complete run of all twelve links, including rebirth", miss: "They illustrate links 6–9, rather than the complete sequence, evidence for rebirth, or a test of attainment." },
+      { id: "partial", label: "A partial illustration of contact through clinging" },
+      { id: "proof", label: "Proof that rebirth is a psychological mood-swing", miss: "No everyday analogy is offered as proof of birth or becoming in their full early-text meaning." },
+    ],
+    correct: "partial",
+    note: "Their three everyday situations are distinct from the canonical three kinds of craving. Distress is an occasion for understanding, not an assignment of blame.",
+  },
+  {
+    id: "24",
+    tag: "ignorance",
+    register: "Ignorance is conditioned",
+    scene: "A visitor asks: “If the ring is open, is ignorance an unconditioned first beginning?”",
+    prompt: "The reading on this site is:",
+    options: [
+      { id: "first", label: "Yes — ignorance starts everything, uncaused", miss: "Ignorance is the first item in this formula, not a first cause of the universe. It remains conditioned. The opening marks no first beginning of saṃsāra." },
+      { id: "conditioned", label: "Ignorance remains conditioned; the opening is not a cosmic start" },
+      { id: "close", label: "We should close the ring to answer the question", miss: "Closing the ring would add an arrow the formula does not state. Other texts discuss the conditionality of ignorance without that picture." },
+    ],
+    correct: "conditioned",
+    note: "The gap preserves the stated sequence. Ignorance remains conditioned, and the opening marks no first beginning of saṃsāra.",
+  },
+  {
+    id: "25",
+    tag: "becoming",
+    register: "Becoming · domains",
+    scene: "SN 12.2 speaks of becoming in the sensual, form, and formless domains, conditioning birth.",
+    prompt: "This is primarily:",
+    options: [
+      { id: "job", label: "A career change or a new mood", miss: "Those may illustrate grasping or identity. The early formula retains its concern with renewed existence." },
+      { id: "existence", label: "Existence or becoming that conditions birth" },
+      { id: "only-karma", label: "Only a modern psychological “karma of habits”", miss: "Harvey explains a classical distinction between karma-becoming and resultant existence. A present-life example cannot exhaust that." },
+    ],
+    correct: "existence",
+    note: "Harvey, pp. 71–72; Gethin, pp. 150–153. The early formula retains its concern with renewed existence even when psychological examples help explain grasping.",
+  },
+  {
+    id: "26",
+    tag: "birth",
+    register: "Birth and the aggregates",
+    scene: "The birth definition mentions the appearance of the aggregates and the acquisition of sense bases.",
+    prompt: "The five aggregates here are:",
+    options: [
+      { id: "soul-parts", label: "Five parts of an enduring soul", miss: "They are groupings used to analyze experience, not five pieces of an unchanging owner." },
+      { id: "groupings", label: "Groupings of experience: form, feeling, perception, formations, consciousness" },
+      { id: "moods", label: "Five passing moods in an afternoon", miss: "“Appearance of the aggregates” refers to these groupings coming into manifestation, in the formula’s account of birth — not a nickname for moods." },
+    ],
+    correct: "groupings",
+    note: "The five aggregates are material form, feeling, perception, volitional formations, and consciousness. They are not five parts of an enduring soul.",
+  },
+  {
+    id: "27",
+    tag: "self",
+    register: "Who feels?",
+    scene: "SN 12.12 asks who feels, and redirects from “a someone” to the condition: with contact as condition, feeling.",
+    prompt: "The force of that move is:",
+    options: [
+      { id: "owner", label: "To name the hidden owner who really feels", miss: "The discourse declines a question that assumes a feeler behind the process, and points to contact as a condition." },
+      { id: "condition", label: "To point to a condition rather than a permanent feeler" },
+      { id: "deny", label: "To deny that anyone ever suffers", miss: "The teaching addresses suffering. It does not establish an unchanging self, and it does not erase the fact of distress." },
+    ],
+    correct: "condition",
+    note: "SN 12.12. The model does not require a permanent self in order to speak of feeling, craving, or release.",
+  },
+  {
+    id: "28",
+    tag: "formations",
+    register: "Cessation of formations",
+    scene: "Someone hears that formations cease and concludes that a living awakened person would be inert.",
+    prompt: "The cessation note on this site says:",
+    options: [
+      { id: "inert", label: "Yes — no further activity is possible", miss: "Formations conditioned by ignorance cease. Wholesome intention and ordinary activity remain possible for a living awakened person." },
+      { id: "conditioned", label: "Formations conditioned by ignorance cease; activity can remain" },
+      { id: "sleep", label: "This is the same as deep sleep", miss: "Sleep is not the cessation formula. The teaching is not an instruction to shut down." },
+    ],
+    correct: "conditioned",
+    note: "Cessation is not time running backward, and it is not sensory shutdown.",
+  },
+  {
+    id: "29",
+    tag: "middle",
+    register: "A middle teaching",
+    scene: "SN 12.15 places dependent arising between “everything exists” and “everything does not exist.”",
+    prompt: "“Middle” here names:",
+    options: [
+      { id: "compromise", label: "A compromise between two opinions about a self", miss: "It names an understanding of experience through its conditions, rather than a bargain between two views." },
+      { id: "conditions", label: "Understanding experience through arising and cessation" },
+      { id: "wheel", label: "The closed Wheel of Life as the true middle", miss: "SN 12.15 is an early discourse on the extremes of existence and nonexistence. It is not a picture of Yama’s wheel." },
+    ],
+    correct: "conditions",
+    note: "Here, “middle” names an understanding of experience through its conditions, rather than a compromise between two opinions.",
+  },
+  {
+    id: "30",
+    tag: "condition",
+    register: "A reading aid",
+    scene: "On the ring, the selected link and its two neighbors are emphasized.",
+    prompt: "That emphasis is:",
+    options: [
+      { id: "all", label: "A claim that only those two conditions are ever involved", miss: "Neighbor highlighting is a reading aid, not every condition involved. Several conditions may contribute to an outcome." },
+      { id: "aid", label: "A reading aid for the stated preceding and following links" },
+      { id: "time", label: "A timetable: each link lasts one year", miss: "The spacing of nodes is not a measure of time. The sequence specifies relationships rather than a schedule." },
+    ],
+    correct: "aid",
+    note: "Bodhi discusses variants of conditionality. The model’s arrows state conditions, not a single sufficient cause.",
+  },
 ];
 
 function initPractice() {
@@ -137,11 +429,41 @@ function initPractice() {
   if (!root) return function () {};
 
   const ac = new AbortController();
+  let round = [];
   let i = 0;
   let picked = null;
   let correctCount = 0;
   const misses = [];
   let phase = "title";
+
+  function shuffle(list) {
+    const a = list.slice();
+    for (let n = a.length - 1; n > 0; n--) {
+      const j = Math.floor(Math.random() * (n + 1));
+      const t = a[n];
+      a[n] = a[j];
+      a[j] = t;
+    }
+    return a;
+  }
+
+  function drawRound() {
+    const shuffled = shuffle(SCENES);
+    const out = [];
+    const used = new Set();
+    for (const s of shuffled) {
+      if (!used.has(s.tag)) {
+        out.push(s);
+        used.add(s.tag);
+      }
+      if (out.length === ROUND_SIZE) return out;
+    }
+    for (const s of shuffled) {
+      if (!out.includes(s)) out.push(s);
+      if (out.length === ROUND_SIZE) return out;
+    }
+    return out;
+  }
 
   function token(name, fallback) {
     const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -181,18 +503,19 @@ function initPractice() {
   }
 
   function start() {
+    round = drawRound();
     i = 0;
     picked = null;
     correctCount = 0;
     misses.length = 0;
     phase = "play";
     render();
-    say("Scene 1 of " + SCENES.length);
+    say("Scene 1 of " + round.length);
   }
 
   function choose(id) {
     if (phase !== "play" || picked) return;
-    const scene = SCENES[i];
+    const scene = round[i];
     picked = id;
     const ok = id === scene.correct;
     if (ok) correctCount += 1;
@@ -211,17 +534,17 @@ function initPractice() {
   }
 
   function next() {
-    if (i < SCENES.length - 1) {
+    if (i < round.length - 1) {
       i += 1;
       picked = null;
       phase = "play";
       render();
-      say("Scene " + (i + 1) + " of " + SCENES.length);
+      say("Scene " + (i + 1) + " of " + round.length);
       return;
     }
     phase = "done";
     render();
-    say("Exercise complete. " + correctCount + " of " + SCENES.length + " named correctly.");
+    say("Exercise complete. " + correctCount + " of " + round.length + " named correctly.");
   }
 
   function optionClass(scene, opt) {
@@ -234,12 +557,12 @@ function initPractice() {
   function renderTitle() {
     root.innerHTML = `
       <div class="practice-card">
-        <p class="eyebrow">Ten scenes · SN 12.2</p>
+        <p class="eyebrow">Ten of ${SCENES.length} · SN 12.2</p>
         <h1>Name the link.</h1>
-        <p class="intro-lead">A short recognition exercise. Misses teach. This is not a test of attainment, and it is not the Wheel of Life.</p>
+        <p class="intro-lead">A short recognition exercise. Each round draws ten scenes from a bank of ${SCENES.length}. Misses teach. This is not a test of attainment, and it is not the Wheel of Life.</p>
         <p class="scope-line">The study page remains the open twelve-link reading. Here you only practice telling the factors apart, and noticing where an illustration stops.</p>
         <div class="start-row">
-          <button class="primary" id="practice-begin" type="button">Begin the ten scenes →</button>
+          <button class="primary" id="practice-begin" type="button">Begin ten scenes →</button>
           <a class="text-link" href="/">Return to the model</a>
         </div>
       </div>`;
@@ -247,7 +570,7 @@ function initPractice() {
   }
 
   function renderPlay() {
-    const scene = SCENES[i];
+    const scene = round[i];
     const revealed = !!picked;
     const chosen = scene.options.find((o) => o.id === picked);
     const ok = picked === scene.correct;
@@ -257,8 +580,8 @@ function initPractice() {
         : `<div class="practice-teach"><strong>A miss that teaches.</strong> ${chosen && chosen.miss ? chosen.miss : ""} <span class="practice-note">${scene.note}</span></div>`
       : "";
     root.innerHTML = `
-      <div class="practice-progress" aria-hidden="true"><span style="width:${((i + (revealed ? 1 : 0)) / SCENES.length) * 100}%"></span></div>
-      <p class="practice-kicker"><strong>${i + 1} of ${SCENES.length}</strong> · ${scene.register}</p>
+      <div class="practice-progress" aria-hidden="true"><span style="width:${((i + (revealed ? 1 : 0)) / round.length) * 100}%"></span></div>
+      <p class="practice-kicker"><strong>${i + 1} of ${round.length}</strong> · ${scene.register}</p>
       <div class="practice-card">
         <p class="practice-scene">${scene.scene}</p>
         <h2>${scene.prompt}</h2>
@@ -274,7 +597,7 @@ function initPractice() {
             .join("")}
         </div>
         ${teach}
-        ${revealed ? `<div class="start-row"><button class="primary" id="practice-next" type="button">${i === SCENES.length - 1 ? "See the count →" : "Next scene →"}</button></div>` : ""}
+        ${revealed ? `<div class="start-row"><button class="primary" id="practice-next" type="button">${i === round.length - 1 ? "See the count →" : "Next scene →"}</button></div>` : ""}
       </div>`;
     root.querySelectorAll("[data-opt]").forEach((b) => {
       b.onclick = () => choose(b.getAttribute("data-opt"));
@@ -295,13 +618,13 @@ function initPractice() {
     root.innerHTML = `
       <div class="practice-card">
         <p class="eyebrow">A count of labels, not of insight</p>
-        <h1>You named ${correctCount} of ${SCENES.length} correctly.</h1>
+        <h1>You named ${correctCount} of ${round.length} correctly.</h1>
         <p class="intro-lead">A score only records whether the words were told apart. Awareness of dependent arising happens in lived experience — not on this page.</p>
-        <p class="scope-line">This drill does not award liberation, rebirth, or a closed wheel. Return to the open sequence when you want the sources.</p>
+        <p class="scope-line">Another round will draw a different ten from the bank of ${SCENES.length}. This drill does not award liberation, rebirth, or a closed wheel.</p>
         ${missList}
         <div class="start-row">
           <a class="primary-link" href="/">Return to the twelve-link model →</a>
-          <button class="text-link" id="practice-again" type="button">Try the ten scenes again</button>
+          <button class="text-link" id="practice-again" type="button">Draw ten more</button>
         </div>
       </div>`;
     document.getElementById("practice-again").onclick = start;
@@ -323,7 +646,7 @@ function initPractice() {
       return;
     }
     if (phase === "play" && !picked && /^[1-3]$/.test(e.key)) {
-      const scene = SCENES[i];
+      const scene = round[i];
       const opt = scene.options[Number(e.key) - 1];
       if (opt) {
         e.preventDefault();

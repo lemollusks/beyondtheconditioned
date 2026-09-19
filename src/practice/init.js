@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { SCENES } from "./scenes.js";
+import { SCENES, ROUND_SIZE } from "./scenes.js";
 
 export function initPractice() {
   const root = document.getElementById("practice-root");
@@ -7,11 +7,41 @@ export function initPractice() {
   if (!root) return function () {};
 
   const ac = new AbortController();
+  let round = [];
   let i = 0;
   let picked = null;
   let correctCount = 0;
   const misses = [];
   let phase = "title";
+
+  function shuffle(list) {
+    const a = list.slice();
+    for (let n = a.length - 1; n > 0; n--) {
+      const j = Math.floor(Math.random() * (n + 1));
+      const t = a[n];
+      a[n] = a[j];
+      a[j] = t;
+    }
+    return a;
+  }
+
+  function drawRound() {
+    const shuffled = shuffle(SCENES);
+    const out = [];
+    const used = new Set();
+    for (const s of shuffled) {
+      if (!used.has(s.tag)) {
+        out.push(s);
+        used.add(s.tag);
+      }
+      if (out.length === ROUND_SIZE) return out;
+    }
+    for (const s of shuffled) {
+      if (!out.includes(s)) out.push(s);
+      if (out.length === ROUND_SIZE) return out;
+    }
+    return out;
+  }
 
   function token(name, fallback) {
     const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -51,18 +81,19 @@ export function initPractice() {
   }
 
   function start() {
+    round = drawRound();
     i = 0;
     picked = null;
     correctCount = 0;
     misses.length = 0;
     phase = "play";
     render();
-    say("Scene 1 of " + SCENES.length);
+    say("Scene 1 of " + round.length);
   }
 
   function choose(id) {
     if (phase !== "play" || picked) return;
-    const scene = SCENES[i];
+    const scene = round[i];
     picked = id;
     const ok = id === scene.correct;
     if (ok) correctCount += 1;
@@ -81,17 +112,17 @@ export function initPractice() {
   }
 
   function next() {
-    if (i < SCENES.length - 1) {
+    if (i < round.length - 1) {
       i += 1;
       picked = null;
       phase = "play";
       render();
-      say("Scene " + (i + 1) + " of " + SCENES.length);
+      say("Scene " + (i + 1) + " of " + round.length);
       return;
     }
     phase = "done";
     render();
-    say("Exercise complete. " + correctCount + " of " + SCENES.length + " named correctly.");
+    say("Exercise complete. " + correctCount + " of " + round.length + " named correctly.");
   }
 
   function optionClass(scene, opt) {
@@ -104,12 +135,12 @@ export function initPractice() {
   function renderTitle() {
     root.innerHTML = `
       <div class="practice-card">
-        <p class="eyebrow">Ten scenes · SN 12.2</p>
+        <p class="eyebrow">Ten of ${SCENES.length} · SN 12.2</p>
         <h1>Name the link.</h1>
-        <p class="intro-lead">A short recognition exercise. Misses teach. This is not a test of attainment, and it is not the Wheel of Life.</p>
+        <p class="intro-lead">A short recognition exercise. Each round draws ten scenes from a bank of ${SCENES.length}. Misses teach. This is not a test of attainment, and it is not the Wheel of Life.</p>
         <p class="scope-line">The study page remains the open twelve-link reading. Here you only practice telling the factors apart, and noticing where an illustration stops.</p>
         <div class="start-row">
-          <button class="primary" id="practice-begin" type="button">Begin the ten scenes →</button>
+          <button class="primary" id="practice-begin" type="button">Begin ten scenes →</button>
           <a class="text-link" href="/">Return to the model</a>
         </div>
       </div>`;
@@ -117,7 +148,7 @@ export function initPractice() {
   }
 
   function renderPlay() {
-    const scene = SCENES[i];
+    const scene = round[i];
     const revealed = !!picked;
     const chosen = scene.options.find((o) => o.id === picked);
     const ok = picked === scene.correct;
@@ -127,8 +158,8 @@ export function initPractice() {
         : `<div class="practice-teach"><strong>A miss that teaches.</strong> ${chosen && chosen.miss ? chosen.miss : ""} <span class="practice-note">${scene.note}</span></div>`
       : "";
     root.innerHTML = `
-      <div class="practice-progress" aria-hidden="true"><span style="width:${((i + (revealed ? 1 : 0)) / SCENES.length) * 100}%"></span></div>
-      <p class="practice-kicker"><strong>${i + 1} of ${SCENES.length}</strong> · ${scene.register}</p>
+      <div class="practice-progress" aria-hidden="true"><span style="width:${((i + (revealed ? 1 : 0)) / round.length) * 100}%"></span></div>
+      <p class="practice-kicker"><strong>${i + 1} of ${round.length}</strong> · ${scene.register}</p>
       <div class="practice-card">
         <p class="practice-scene">${scene.scene}</p>
         <h2>${scene.prompt}</h2>
@@ -144,7 +175,7 @@ export function initPractice() {
             .join("")}
         </div>
         ${teach}
-        ${revealed ? `<div class="start-row"><button class="primary" id="practice-next" type="button">${i === SCENES.length - 1 ? "See the count →" : "Next scene →"}</button></div>` : ""}
+        ${revealed ? `<div class="start-row"><button class="primary" id="practice-next" type="button">${i === round.length - 1 ? "See the count →" : "Next scene →"}</button></div>` : ""}
       </div>`;
     root.querySelectorAll("[data-opt]").forEach((b) => {
       b.onclick = () => choose(b.getAttribute("data-opt"));
@@ -165,13 +196,13 @@ export function initPractice() {
     root.innerHTML = `
       <div class="practice-card">
         <p class="eyebrow">A count of labels, not of insight</p>
-        <h1>You named ${correctCount} of ${SCENES.length} correctly.</h1>
+        <h1>You named ${correctCount} of ${round.length} correctly.</h1>
         <p class="intro-lead">A score only records whether the words were told apart. Awareness of dependent arising happens in lived experience — not on this page.</p>
-        <p class="scope-line">This drill does not award liberation, rebirth, or a closed wheel. Return to the open sequence when you want the sources.</p>
+        <p class="scope-line">Another round will draw a different ten from the bank of ${SCENES.length}. This drill does not award liberation, rebirth, or a closed wheel.</p>
         ${missList}
         <div class="start-row">
           <a class="primary-link" href="/">Return to the twelve-link model →</a>
-          <button class="text-link" id="practice-again" type="button">Try the ten scenes again</button>
+          <button class="text-link" id="practice-again" type="button">Draw ten more</button>
         </div>
       </div>`;
     document.getElementById("practice-again").onclick = start;
@@ -193,7 +224,7 @@ export function initPractice() {
       return;
     }
     if (phase === "play" && !picked && /^[1-3]$/.test(e.key)) {
-      const scene = SCENES[i];
+      const scene = round[i];
       const opt = scene.options[Number(e.key) - 1];
       if (opt) {
         e.preventDefault();

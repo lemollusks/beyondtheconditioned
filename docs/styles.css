@@ -229,3 +229,105 @@ body.ceased .panel::before{background:var(--sage)}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
 }
+
+/* Recognition exercise — companion page, same study palette. */
+.practice-page{max-width:44rem}
+.practice-kicker{font-size:13px;color:var(--muted);margin:0 0 14px}
+.practice-kicker strong{color:var(--ink)}
+.practice-card h1{font:clamp(28px,4vw,40px)/1.15 Georgia,serif;font-weight:400;margin:8px 0 14px}
+.practice-card h2{font:23px/1.3 Georgia,serif;font-weight:400;margin:18px 0 14px}
+.practice-scene{
+  font-size:18px;
+  line-height:1.5;
+  margin:0 0 8px;
+  padding:18px 20px;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-left:3px solid var(--gold);
+  border-radius:10px;
+}
+.practice-options{display:flex;flex-direction:column;gap:10px;margin:8px 0 16px}
+.practice-opt{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  text-align:left;
+  min-height:52px;
+  padding:12px 14px;
+  background:var(--white);
+}
+.practice-key{
+  flex:0 0 28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--line);
+  border-radius:50%;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:2px;
+}
+.practice-opt.is-correct{border-color:var(--sage);background:var(--sage-wash)}
+.practice-opt.is-correct .practice-key{border-color:var(--sage);color:var(--sage)}
+.practice-opt.is-miss{border-color:var(--line);opacity:.85}
+.practice-opt.is-idle{opacity:.55}
+.practice-teach{
+  font-size:15px;
+  line-height:1.55;
+  margin:4px 0 16px;
+  padding:14px 16px;
+  border-left:3px solid var(--gold);
+  background:var(--wash);
+}
+.practice-teach.is-ok{border-left-color:var(--sage);background:var(--sage-wash)}
+.practice-note{display:block;margin-top:10px;font-size:13px;color:var(--muted)}
+.practice-progress{
+  height:3px;
+  background:var(--line);
+  border-radius:2px;
+  margin:0 0 18px;
+  overflow:hidden;
+}
+.practice-progress span{
+  display:block;
+  height:100%;
+  background:var(--accent);
+  width:0;
+}
+.practice-misses{padding-left:20px;margin:18px 0}
+.practice-misses li{margin-bottom:16px}
+.practice-misses p{margin:6px 0 0;font-size:14px;color:var(--muted)}
+.intro-lead{font-size:18px;line-height:1.5;margin:12px 0 16px;max-width:38em}
+.start-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;margin:18px 0 8px}
+button.text-link, a.text-link{
+  border:0;
+  background:none;
+  padding:8px 0;
+  min-height:44px;
+  color:var(--sage);
+  text-decoration:underline;
+  text-underline-offset:3px;
+  font-size:15px;
+}
+a.primary-link, button.primary-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:12px 20px;
+  background:var(--ink);
+  color:var(--white);
+  border:1px solid var(--ink);
+  border-radius:7px;
+  text-decoration:none;
+  font-size:16px;
+}
+a.primary-link:hover{color:var(--white)}
+@media(hover: hover) and (pointer: fine){
+  button.text-link:hover, a.text-link:hover{background:none;color:var(--ink)}
+}
+@media(max-width:480px){
+  .practice-scene{font-size:16px;padding:14px}
+  .practice-opt{min-height:48px}
+  .start-row .primary, .start-row .primary-link{flex:1 1 auto}
+}

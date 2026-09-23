@@ -1,5 +1,5 @@
 /* Beyond the Conditioned — cache the study and the exercise for offline reading. */
-const VERSION = "btc-20260921a";
+const VERSION = "btc-20260923a";
 const PRECACHE = [
   "/",
   "/index.html",
@@ -8,6 +8,8 @@ const PRECACHE = [
   "/practice/",
   "/practice/index.html",
   "/practice.js",
+  "/truths/",
+  "/truths/index.html",
   "/manifest.json",
   "/favicon.svg",
   "/favicon-32.png",

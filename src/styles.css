@@ -235,6 +235,81 @@ body.ceased .panel::before{background:var(--sage)}
   html{scroll-behavior:auto}
 }
 
+/* Four Noble Truths — same house, a warmer room. Night palette is unchanged. */
+[data-room="truths"][data-theme="light"],
+[data-room="truths"]:not([data-theme="dark"]){
+  --paper:#f3ead6;
+  --white:#fff8ec;
+  --line:#d4c4ab;
+  --wash:#efe3cc;
+  --goldwash:#ead9b4;
+  --bar:#efe6d4;
+  --btn-hover:#e7d9c2;
+  --theme-color:#f3ead6;
+}
+.truths-page{max-width:46rem}
+.truths-page h1{
+  font:normal clamp(32px,5vw,46px)/1.15 Georgia,serif;
+  margin:8px 0 0;
+}
+.truths-page h1:after{
+  content:"";
+  display:block;
+  width:72px;
+  height:1px;
+  margin:18px 0 0;
+  background:var(--gold);
+}
+.truths-tasks{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 18px;
+  margin:18px 0 22px;
+  color:var(--gold);
+  font:15px/1.4 Georgia,serif;
+}
+.truths-tasks span{white-space:nowrap}
+.truths-tasks span+span:before{
+  content:"·";
+  margin-right:18px;
+  color:var(--line);
+}
+.truths-page .truth-item summary{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  font:normal 22px/1.35 Georgia,serif;
+  padding:18px 0;
+  min-height:52px;
+}
+.truths-page .truth-no{
+  font-size:13px;
+  letter-spacing:.08em;
+  color:var(--gold);
+  font-family:system-ui,sans-serif;
+}
+.truths-page .further-reading{
+  margin-top:42px;
+  padding-top:8px;
+}
+.truths-page .further-reading h2{
+  font:normal 30px/1.2 Georgia,serif;
+  margin:0 0 12px;
+}
+.truths-page .reading-item{padding:16px 0}
+.truths-page .reading-item+.reading-item{border-top:1px solid var(--line)}
+.truths-page .reading-item h3{
+  font:normal 21px/1.35 Georgia,serif;
+  margin:0 0 6px;
+}
+.truths-page .reading-meta{font-size:13px;color:var(--muted);margin:0 0 8px}
+@media(max-width:480px){
+  .truths-page .truth-item summary{font-size:19px}
+}
+@media print{
+  .truths-page .truth-item,.truths-page .reading-item{break-inside:avoid}
+}
+
 /* Recognition exercise — companion page, same study palette. */
 .practice-page{max-width:44rem}
 .practice-kicker{font-size:13px;color:var(--muted);margin:0 0 14px}

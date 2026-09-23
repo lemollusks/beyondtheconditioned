@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EightfoldRouteImport } from './routes/eightfold'
 import { Route as PracticeRouteImport } from './routes/practice'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -18,6 +19,11 @@ import { Route as TruthsRouteImport } from './routes/truths'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EightfoldRoute = EightfoldRouteImport.update({
+  id: '/eightfold',
+  path: '/eightfold',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PracticeRoute = PracticeRouteImport.update({
@@ -43,6 +49,7 @@ const TruthsRoute = TruthsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/eightfold': typeof EightfoldRoute
   '/practice': typeof PracticeRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/eightfold': typeof EightfoldRoute
   '/practice': typeof PracticeRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/eightfold': typeof EightfoldRoute
   '/practice': typeof PracticeRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -65,15 +74,34 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/practice' | '/robots.txt' | '/sitemap.xml' | '/truths'
+  fullPaths:
+    | '/'
+    | '/eightfold'
+    | '/practice'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/truths'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/practice' | '/robots.txt' | '/sitemap.xml' | '/truths'
+  to:
+    | '/'
+    | '/eightfold'
+    | '/practice'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/truths'
   id:
-    '__root__' | '/' | '/practice' | '/robots.txt' | '/sitemap.xml' | '/truths'
+    | '__root__'
+    | '/'
+    | '/eightfold'
+    | '/practice'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/truths'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EightfoldRoute: typeof EightfoldRoute
   PracticeRoute: typeof PracticeRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -87,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/eightfold': {
+      id: '/eightfold'
+      path: '/eightfold'
+      fullPath: '/eightfold'
+      preLoaderRoute: typeof EightfoldRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/practice': {
@@ -122,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EightfoldRoute: EightfoldRoute,
   PracticeRoute: PracticeRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

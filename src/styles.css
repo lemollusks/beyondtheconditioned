@@ -389,6 +389,76 @@ body.ceased .panel::before{background:var(--sage)}
   .path-factor,.path-practice{break-inside:avoid}
 }
 
+.fit-map{margin:6px 0 28px}
+.fit-map .eyebrow{margin:0 0 10px}
+.fit-map ol{
+  list-style:none;
+  margin:0;
+  padding:0;
+  position:relative;
+  border-top:1px solid var(--line);
+}
+.fit-map ol:before{
+  content:"";
+  position:absolute;
+  left:6px;
+  top:28px;
+  bottom:28px;
+  width:1px;
+  background:var(--line);
+}
+.fit-map li{position:relative;border-bottom:1px solid var(--line)}
+.fit-map li:before{
+  content:"";
+  position:absolute;
+  left:3px;
+  top:22px;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  border:1px solid var(--gold);
+  background:var(--paper);
+  z-index:1;
+}
+.fit-map .is-here:before{background:var(--gold);border-color:var(--gold)}
+[data-room="path"] .fit-map li:before{border-color:var(--sage)}
+[data-room="path"] .fit-map .is-here:before{background:var(--sage);border-color:var(--sage)}
+.fit-row{
+  display:grid;
+  grid-template-columns:8.5rem 1fr;
+  column-gap:16px;
+  row-gap:2px;
+  align-items:baseline;
+  padding:14px 4px 14px 22px;
+  min-height:52px;
+  text-decoration:none;
+  color:inherit;
+}
+a.fit-row:hover .fit-name{color:var(--sage)}
+.fit-role{
+  grid-column:1;
+  grid-row:1 / span 2;
+  align-self:center;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.fit-name{font:20px/1.25 Georgia,serif;color:var(--ink)}
+.fit-does{font-size:14px;color:var(--muted)}
+.fit-map .is-here{background:var(--wash)}
+.fit-map .is-here .fit-name{color:var(--gold)}
+[data-room="path"] .fit-map .is-here .fit-name{color:var(--sage)}
+.fit-note{margin:12px 0 0;font-size:13px;color:var(--muted);max-width:62ch}
+@media(max-width:480px){
+  .fit-row{grid-template-columns:1fr;padding-left:22px}
+  .fit-role{grid-row:auto;margin-bottom:2px}
+}
+@media print{
+  .fit-map{break-inside:avoid}
+  .fit-map a{color:#222}
+}
+
 /* Recognition exercise — companion page, same study palette. */
 .practice-page{max-width:44rem}
 .practice-kicker{font-size:13px;color:var(--muted);margin:0 0 14px}

@@ -74,8 +74,8 @@
   --theme-color:#121916;
   color-scheme:dark;
 }
-html{scroll-behavior:smooth;scroll-padding-top:64px;background:var(--paper);color:var(--ink);touch-action:manipulation}
-body{margin:0;background:var(--paper);color:var(--ink);text-wrap:pretty}
+html{scroll-behavior:auto;scroll-padding-top:64px;background:var(--paper);color:var(--ink);touch-action:manipulation}
+body{margin:0;background:var(--paper);color:var(--ink)}
 h1,h2,h3,h4{text-wrap:balance}
 @media (hover: hover) and (pointer: fine){
   button:hover{background:var(--btn-hover)}
@@ -457,6 +457,19 @@ a.fit-row:hover .fit-name{color:var(--sage)}
 @media print{
   .fit-map{break-inside:avoid}
   .fit-map a{color:#222}
+}
+
+/* Header links stay 44px. The 480px rule was shrinking them to ~26px. */
+.header-reading{
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  padding:8px 6px;
+}
+summary{touch-action:manipulation}
+@media(max-width:480px){
+  .header-actions{flex-wrap:wrap;row-gap:0}
+  .header-reading{font-size:13px;min-height:44px;padding:8px 6px}
 }
 
 /* Recognition exercise — companion page, same study palette. */
